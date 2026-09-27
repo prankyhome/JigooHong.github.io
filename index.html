@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jigoo Hong</title>
+  <meta name="description" content="Jigoo Hong (홍지구) — Visual Artist based in Hamburg, Germany. Exploring themes of Public Skin, somatic presence, and the Skin of Knowledge.">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -23,20 +24,20 @@
       letter-spacing: -0.02em;
     }
 
-    /* 상단 미니멀 고정 헤더 */
+    /* 상단 고정 헤더 (모바일 글자 꺾임 방지) */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 72px;
+      height: 64px;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(8px);
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 48px;
+      padding: 0 40px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
     .header-logo {
@@ -45,8 +46,14 @@
       text-decoration: none;
       color: #111111;
       letter-spacing: -0.01em;
+      white-space: nowrap;  /* 이름 두 줄 꺾임 방지 */
+      flex-shrink: 0;
     }
-    nav { display: flex; gap: 32px; }
+    nav { 
+      display: flex; 
+      gap: 28px; 
+      align-items: center;
+    }
     nav a {
       text-decoration: none;
       color: #777777;
@@ -54,19 +61,38 @@
       letter-spacing: 0.02em;
       text-transform: uppercase;
       font-weight: 500;
+      white-space: nowrap;
       transition: color 0.2s;
     }
     nav a:hover, nav a.active { color: #000000; font-weight: 600; }
 
-    /* 서브 페이지 공통 컨테이너 */
+    @media (max-width: 768px) {
+      header {
+        height: 56px;
+        padding: 0 16px;
+      }
+      .header-logo {
+        font-size: 0.95rem;
+      }
+      nav { 
+        gap: 12px;
+      }
+      nav a {
+        font-size: 0.72rem;
+      }
+    }
+
+    /* 컨테이너 */
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 110px 32px 100px 32px;
     }
 
-    /* 페이지 전환 */
-    .page-view { display: none; }
+    .page-view {
+      display: none;
+      content-visibility: auto;
+    }
     .page-view.active {
       display: block;
       animation: fadeIn 0.25s ease-in-out;
@@ -76,9 +102,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* =========================================
-       1. HOME (work1 30% 확대 + 우측 검은색 이름)
-       ========================================= */
+    /* HOME */
     #page-home.active {
       display: flex;
       align-items: center;
@@ -115,23 +139,13 @@
       color: #111111;
       letter-spacing: -0.03em;
     }
-    .home-text-wrap p {
-      font-size: 0.95rem;
-      color: #777777;
-      margin-top: 16px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
     @media (max-width: 860px) {
       #page-home.active { padding: 40px 24px; }
       .home-split-layout { grid-template-columns: 1fr; gap: 40px; }
       .home-text-wrap { padding-left: 0; }
     }
 
-    /* =========================================
-       2. WORK MAIN (제목 먼저 -> 사진 아래)
-       ========================================= */
+    /* WORK LIST */
     .vertical-work-list {
       display: flex;
       flex-direction: column;
@@ -175,7 +189,6 @@
       opacity: 0.92;
     }
 
-    /* 뒤로가기 버튼 */
     .back-nav { margin-bottom: 40px; }
     .back-btn {
       display: inline-block;
@@ -188,7 +201,6 @@
     }
     .back-btn:hover { color: #000000; font-weight: 600; }
 
-    /* 타이포그래피 */
     .lead-headline {
       font-size: 1.65rem;
       font-weight: 600;
@@ -216,7 +228,6 @@
       margin-bottom: 24px;
     }
 
-    /* 이미지 스타일 */
     .img-fluid { width: 100%; height: auto; display: block; }
     .img-center-solo {
       width: 100%;
@@ -226,7 +237,6 @@
       margin: 50px auto 40px auto;
     }
 
-    /* 그리드 레이아웃 */
     .grid-2col {
       display: grid;
       grid-template-columns: 1fr;
@@ -249,7 +259,6 @@
       margin: 45px auto;
     }
 
-    /* 알 사진 페어 */
     .egg-photos-pair {
       display: flex;
       gap: 16px;
@@ -263,7 +272,6 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.05);
     }
 
-    /* 우측 정렬 */
     .right-aligned-wrap {
       display: flex;
       justify-content: flex-end;
@@ -274,7 +282,7 @@
       max-width: 520px;
     }
 
-    /* BIO 그리드 */
+    /* BIO & CV */
     .bio-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -295,7 +303,6 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
     }
 
-    /* CV 스타일 */
     .cv-section {
       border-top: 1px solid #eaeaea;
       padding-top: 60px;
@@ -339,12 +346,12 @@
   </header>
 
   <!-- ====================================================
-       1. HOME (work1 30% 확대 + 우측 검은색 이름)
+       1. HOME
        ==================================================== -->
   <div id="page-home" class="page-view">
     <div class="home-split-layout">
       <div class="home-img-wrap">
-        <img src="work1.JPG" alt="work1">
+        <img src="work1.JPG" alt="work1" fetchpriority="high">
       </div>
       <div class="home-text-wrap">
         <h1>Jigoo Hong</h1>
@@ -355,7 +362,7 @@
   <div class="container">
 
     <!-- ====================================================
-         2. WORK MAIN (제목 먼저 -> 사진 아래)
+         2. WORK MAIN (목록)
          ==================================================== -->
     <section id="page-work" class="page-view">
       <div class="vertical-work-list">
@@ -364,10 +371,10 @@
         <a href="#work2" class="work-card-link">
           <div class="work-card-header">
             <h2>The Demise of the Mother [Zeit Künstliche Besamung, Reproduktion]</h2>
-            <p>2023, Installation, somatic labor, biodegradable seeds, VR</p>
+            <p>2023–2024, Installation, somatic labor, biodegradable seeds, VR</p>
           </div>
           <div class="work-card-img">
-            <img src="work2.jpg" alt="Work 2">
+            <img src="work2.jpg" alt="Work 2" loading="lazy" decoding="async">
           </div>
         </a>
 
@@ -378,7 +385,7 @@
             <p>2026, High-pressure air and pigment on canvas, spatial installation</p>
           </div>
           <div class="work-card-img">
-            <img src="work3.JPG" alt="Work 3">
+            <img src="work3.JPG" alt="Work 3" loading="lazy" decoding="async">
           </div>
         </a>
 
@@ -389,7 +396,7 @@
             <p>2025, Acrylic on canvas, spatial darkness installation</p>
           </div>
           <div class="work-card-img">
-            <img src="work4.JPG" alt="Work 4">
+            <img src="work4.JPG" alt="Work 4" loading="lazy" decoding="async">
           </div>
         </a>
 
@@ -406,38 +413,37 @@
 
       <div class="grid-2col unequal-left">
         <div>
-          <img src="workin2.1.png" alt="W2.1" class="img-fluid">
+          <img src="workin2.1.png" alt="W2.1" class="img-fluid" loading="lazy" decoding="async">
         </div>
         <div>
           <h2 class="curatorial-title">The Demise of the Mother [Zeit Künstliche Besamung, Reproduktion]</h2>
           <p class="curatorial-p">
-            An ecosystem abruptly erupts within the space, operating to expose the institutional violence embedded in the societal mandate of maternity and revealing the raw contingency and randomness of existence.
+            Participants receive biodegradable eggs containing dormant wild flower seeds and carry them out into the streets, placing or casting them wherever they choose. Free from institutional control, this arbitrary dispersal becomes a collective gesture of life taking root in the public fabric of the city.
           </p>
           <p class="curatorial-p">
-            Mutated into the morphology of a virus, the body operates as an invasive prosthetic—expropriating reproduction from patriarchal and taxonomic governance to defiantly name a new species and mode of propagation.
+            Inside the gallery, reproduction is stripped of its romanticized, patriarchal mandate. Through somatic labor—parting earth with bare hands to sow seeds—the work exposes the institutional violence that regulates bodies and maternal duty.
           </p>
           <p class="curatorial-p">
-            Channeled through somatic labor, the duration of parting earth with bare hands to sow the ovum gestates an anonymous, non-human embryo within the computational void. Transcending biological division, this propagation operates as a viral contagion within the spectator's memory, stripping birth of its romanticized sanctity and transmuting it into a metabolic transaction between synthetic organs and raw code.
+            Extending into a virtual environment, life is no longer treated as an automated social obligation, but as an unpredictable, shared force that belongs directly to the hands that scatter it.
           </p>
           <p class="caption-tag">HISCOX Kunstpreis 2023 exhibition view</p>
         </div>
       </div>
 
-      <img src="workin2.2.PNG" alt="W2.2" class="img-fluid" style="margin: 45px 0;">
+      <img src="workin2.2.PNG" alt="W2.2" class="img-fluid" style="margin: 45px 0;" loading="lazy" decoding="async">
 
-      <!-- W2.3 옆에 W2.4 & W2.5 알 사진 2개 나란히 -->
       <div class="grid-2col">
         <div>
-          <img src="workin2.3.PNG" alt="W2.3" class="img-fluid">
+          <img src="workin2.3.PNG" alt="W2.3" class="img-fluid" loading="lazy" decoding="async">
         </div>
         <div>
           <div class="egg-photos-pair">
-            <img src="workin2.4.PNG" alt="W2.4">
-            <img src="workin2.5.PNG" alt="W2.5">
+            <img src="workin2.4.PNG" alt="W2.4" loading="lazy" decoding="async">
+            <img src="workin2.5.PNG" alt="W2.5" loading="lazy" decoding="async">
           </div>
           <p class="caption-tag">egg with wild flower seed</p>
           <p class="curatorial-p">
-            Extending beyond the gallery, the work operates as an apparatus drawing bodies into action. Participants receive biodegradable eggs containing dormant seeds, casting or depositing them wherever they choose. Free from prescribed routes, this arbitrary dispersal operates as a contingent gesture of existence—unfolding through unscripted material persistence outside systemic control.
+            The work operates as an apparatus that pulls bodies into action. Rather than observing an artwork from a safe distance, visitors step into the ecosystem, taking physical responsibility for how and where these dormant seeds will awaken.
           </p>
         </div>
       </div>
@@ -453,7 +459,7 @@
     </section>
 
     <!-- ====================================================
-         4. WORK 3 DETAIL (Public Skin: 3.8 단독 중앙 배치)
+         4. WORK 3 DETAIL (Public Skin)
          ==================================================== -->
     <section id="page-work3" class="page-view">
       <div class="back-nav">
@@ -465,7 +471,7 @@
       </h1>
 
       <div style="max-width: 760px; margin: 0 auto 40px auto;">
-        <img src="work1.JPG" alt="W1" class="img-fluid">
+        <img src="work1.JPG" alt="W1" class="img-fluid" loading="lazy" decoding="async">
       </div>
 
       <h2 class="curatorial-title">Public Skin</h2>
@@ -477,12 +483,12 @@
           What dismantles the root of this disconnection is a field of resonance operating prior to critical judgment. Before fully articulated language arrives, my work invokes a process of <em>de-othering</em>, summoning back into the realm of sensation those entities long exiled beyond systems of classification—nature and the female body. This connects directly to the mechanism of ancient festivals, which temporarily suspended social order and judgment to bring forth the banished and dissolve rigid boundaries.
         </p>
         <p>
-          Within the layered silence of darkness, the gathering of information and cognitive calculation halt; the viewer moves beyond being a mere onlooker to become a "somatic accomplice" (<em>Somatische Komplizenschaft</em>), physically absorbing tremors that lie beyond language. In this moment, as explanations and social labels fall away, the walls encircling the self dissolve. Through pre-linguistic resonance, viewers break free from their isolated worlds and finally acquire a "Public Skin" that directly connects them with once-alienated existences.
+          Within the layered silence of darkness, the gathering of information and cognitive calculation halt; the viewer moves beyond being a mere onlooker to physically absorb tremors that lie beyond language. In this moment, as explanations and social labels fall away, the walls encircling the self dissolve. Through pre-linguistic resonance, viewers break free from their isolated worlds and finally acquire a "Public Skin" that directly connects them with once-alienated existences.
         </p>
       </div>
 
       <!-- w3.8 단독 중앙 배치 -->
-      <img src="workin3.8.JPG" alt="W3.8" class="img-center-solo">
+      <img src="workin3.8.JPG" alt="W3.8" class="img-center-solo" loading="lazy" decoding="async">
 
       <div class="curatorial-p" style="max-width: 820px; margin: 0 auto 60px auto;">
         <p>
@@ -494,10 +500,10 @@
       </div>
 
       <!-- W3.6 & W3.7 -->
-      <img src="workin3.6.jpg" alt="W3.6" class="img-fluid" style="margin-bottom: 30px;">
+      <img src="workin3.6.jpg" alt="W3.6" class="img-fluid" style="margin-bottom: 30px;" loading="lazy" decoding="async">
       <div class="grid-2col unequal-left">
         <div>
-          <img src="workin3.7.JPG" alt="W3.7" class="img-fluid">
+          <img src="workin3.7.JPG" alt="W3.7" class="img-fluid" loading="lazy" decoding="async">
         </div>
         <div>
           <p class="curatorial-p">
@@ -509,8 +515,8 @@
       <!-- W3.4 & W3.5 -->
       <div class="grid-2col">
         <div style="display: flex; gap: 15px;">
-          <img src="workin3.4.jpg" alt="W3.4" class="img-fluid" style="width: 50%;">
-          <img src="workin3.5.JPG" alt="W3.5" class="img-fluid" style="width: 50%;">
+          <img src="workin3.4.jpg" alt="W3.4" class="img-fluid" style="width: 50%;" loading="lazy" decoding="async">
+          <img src="workin3.5.JPG" alt="W3.5" class="img-fluid" style="width: 50%;" loading="lazy" decoding="async">
         </div>
         <div>
           <p class="curatorial-p">
@@ -522,15 +528,15 @@
       <!-- W3.9 & W3.11 -->
       <div class="grid-2col unequal-left">
         <div style="display: flex; gap: 15px;">
-          <img src="workin3.9.jpg" alt="W3.9" class="img-fluid" style="width: 50%;">
-          <img src="workin3.11.jpg" alt="W3.11" class="img-fluid" style="width: 50%;">
+          <img src="workin3.9.jpg" alt="W3.9" class="img-fluid" style="width: 50%;" loading="lazy" decoding="async">
+          <img src="workin3.11.jpg" alt="W3.11" class="img-fluid" style="width: 50%;" loading="lazy" decoding="async">
         </div>
         <div>
           <p class="curatorial-p">
             The core of this work lies not in defining form with hand or brush, but in a physical process that deconstructs the order of pigment through the immaterial force of high-pressure air. Air pressure pushes and displaces paint across the canvas surface, generating subtle layers of density.
           </p>
           <p class="curatorial-p">
-            Here, the shape of existence emerges not as a solid, filled mass of pigment, but within the space swept away by air—in the trajectories left behind by emptiness and void. Rather than static "Being," it is this 'trajectory of non-being' (<em>Form des Nichtseins</em>) that becomes the most vital point of origin for existence.
+            Here, the shape of existence emerges not as a solid, filled mass of pigment, but within the space swept away by air — in the trajectories left behind by emptiness and void. Rather than static presence, it is this trajectory of absence that becomes the most vital point of origin for existence.
           </p>
         </div>
       </div>
@@ -548,65 +554,70 @@
         When unmoored from materiality, how can floating bodies recognize and reveal the 'Skin of Knowledge' as their boundaries fade?
       </h1>
 
+      <!-- W4.6 & W4.5 -->
       <div class="grid-2col">
         <div style="display: flex; gap: 15px;">
-          <img src="workin4.6.jpg" alt="W4.6" class="img-fluid" style="width: 50%;">
-          <img src="workin4.5.jpg" alt="W4.5" class="img-fluid" style="width: 50%;">
+          <img src="workin4.6.jpg" alt="W4.6" class="img-fluid" style="width: 50%;" loading="lazy" decoding="async">
+          <img src="workin4.5.jpg" alt="W4.5" class="img-fluid" style="width: 50%;" loading="lazy" decoding="async">
         </div>
         <div>
           <p class="curatorial-p">
-            The exhibition opens by constructing a dark space where visual signs are rendered powerless. Here, darkness functions not merely as a device to obscure objects from sight, but as a site of dissolution that unmoors the "anchor of materiality"—the force that once bound existence to rigid social positions and form.
+            The exhibition opens in a dark space where visual signs stop working. Darkness isn't just there to hide the objects — it's what lets go of the thing that used to pin existence to a fixed social position and form.
           </p>
           <p class="curatorial-p">
-            In a space deprived of light, the bodily contours and solid boundaries that once demarcated the self from the other gradually blur and dissolve. Losing one's fixed coordinates and floating through the space is precisely the essential condition required to suspend critical judgment and conventional socialization, opening the way to resonance.
+            In the dark, the outlines that once marked where one body ends and another begins start to blur. Losing your fixed position and floating is exactly what it takes to stop judging and start sensing.
           </p>
         </div>
       </div>
 
+      <!-- W4.7 -->
       <h2 class="curatorial-title" style="margin-top: 30px;">Skin of Knowledge</h2>
-      <img src="workin4.7.jpg" alt="W4.7" class="img-fluid" style="margin-bottom: 24px;">
+      <img src="workin4.7.jpg" alt="W4.7" class="img-fluid" style="margin-bottom: 24px;" loading="lazy" decoding="async">
       <p class="curatorial-p" style="max-width: 860px; margin-bottom: 50px;">
-        The <strong>Skin of Knowledge (<em>Haut des Wissens</em>)</strong> is an exploratory concept that designates the semiotic boundaries of contemporary society, where all existence is endlessly measured and categorized through data, algorithms, and the logic of efficiency. Overlaid by institutional language and fixed identities, this surface confines individual presence within normativity, frequently suspending the possibility of genuine sensory contact. Through its thick materiality, painting renders this hitherto invisible Skin of Knowledge perceptible, probing whether these rigid boundaries can be dissolved and transformed into a 'Public Skin' where existences beyond language can breathe together.
+        The <strong>Skin of Knowledge (<em>Haut des Wissens</em>)</strong> names a simple fact: everything alive today gets measured, sorted, and filed by data, algorithms, efficiency. Under that layer, a person's presence gets boxed into a fixed identity, and real contact between bodies rarely happens. Thick, physical paint makes this invisible layer touchable — and asks whether it can dissolve into a Public Skin, where what lives beneath language can breathe together.
       </p>
 
-      <!-- w4.1 & w4.2 나란히 수평 중앙 배치 -->
+      <!-- W4.1 & W4.2 -->
       <div class="grid-paired center-paired">
-        <img src="workin4.1.JPG" alt="W4.1" class="img-fluid">
-        <img src="workin4.2.JPG" alt="W4.2" class="img-fluid">
+        <img src="workin4.1.JPG" alt="W4.1" class="img-fluid" loading="lazy" decoding="async">
+        <img src="workin4.2.JPG" alt="W4.2" class="img-fluid" loading="lazy" decoding="async">
       </div>
       <div class="curatorial-p" style="max-width: 780px; margin: 0 auto 50px auto;">
         <p>
-          The material density of the acrylic paint and the weight of the canvas make the Skin of Knowledge tangibly felt. Thick, layered pigment and theatrical light mark the compressed surface of categorization—revealing the living existence that persists beneath it.
+          The density of the acrylic and the weight of the canvas make the Skin of Knowledge something you can feel, not just see. Thick, layered pigment marks the compressed surface of categorization — and underneath it, a living existence that hasn't gone anywhere.
         </p>
       </div>
 
-      <!-- w4.10 단독 중앙 배치 -->
+      <!-- W4.10: 강력한 신체/공적 피부 텍스트 -->
       <div style="max-width: 640px; margin: 0 auto 30px auto;">
-        <img src="workin4.10.JPG" alt="W4.10" class="img-fluid">
+        <img src="workin4.10.JPG" alt="W4.10" class="img-fluid" loading="lazy" decoding="async">
       </div>
       <div class="curatorial-p" style="max-width: 780px; margin: 0 auto 50px auto;">
         <p>
-          Through my body as a primordial sensor, I register woman, nature, and the invisible existences relegated to "others" by normative systems. Drawing the spectator into the somatic conditions of this exiled existence, I stage a direct confrontation—a ritual of <em>de-othering</em>.
+          I use my own body as a primordial sensor — a surface tuned to register what gets pushed outside the social order: women, nature, whatever a system files under "other."
         </p>
-        <p style="font-weight: 600; color: #111111; margin-top: 15px;">
-          Public Skin is a collective realm where sensation emerges prior to naming.
+        <p>
+          I bring that excluded form into the room as something real — weight, paint, a body-sized presence — and let it meet the visitor's body directly, before either one of us has time to sort the other into a category.
+        </p>
+        <p style="font-weight: 500; color: #111111;">
+          Nothing here gets explained. It gets felt. The line each visitor uses to separate "self" from "other" loosens for a moment, and in that loosening, something opens that I call Public Skin — a shared space where people encounter one another before fixed identities take hold.
         </p>
       </div>
 
-      <!-- .11 & .15 밀착 배치 -->
+      <!-- W4.11 & W4.15 -->
       <div class="grid-paired" style="max-width: 720px; margin: 0 auto 50px auto;">
-        <img src="workin4.11.JPG" alt="W4.11" class="img-fluid">
-        <img src="workin4.15.jpg" alt="W4.15" class="img-fluid">
+        <img src="workin4.11.JPG" alt="W4.11" class="img-fluid" loading="lazy" decoding="async">
+        <img src="workin4.15.jpg" alt="W4.15" class="img-fluid" loading="lazy" decoding="async">
       </div>
 
-      <!-- 4.13 좌측 배치 + 우측 글 -->
+      <!-- W4.13 -->
       <div class="grid-2col unequal-left">
         <div>
-          <img src="workin4.13.jpg" alt="W4.13" class="img-fluid">
+          <img src="workin4.13.jpg" alt="W4.13" class="img-fluid" loading="lazy" decoding="async">
         </div>
         <div>
           <p class="curatorial-p">
-            As distance grows from the material world, the layers of canvas and pigment thin out. The body loses its weight. What remains in the end is emotion, and a blind faith in materiality.
+            The further it moves from the material world, the thinner the canvas and pigment become. The body loses its weight. What's left, in the end, is feeling — and a blind faith that matter still matters.
           </p>
           <p class="caption-tag">being, 2025, Acrylic on Canvas</p>
         </div>
@@ -615,20 +626,18 @@
       <!-- 우측 정렬 work4 -->
       <div class="right-aligned-wrap">
         <div class="inner">
-          <img src="work4.JPG" alt="W4" class="img-fluid">
+          <img src="work4.JPG" alt="W4" class="img-fluid" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
 
     <!-- ====================================================
-         6. BIO & CV (새 선언문 + 아트보드 55 이력)
+         6. BIO & CV
          ==================================================== -->
     <section id="page-bio" class="page-view">
-      
-      <!-- 상단: me1 대신 jigooHong.png 적용 -->
       <div class="bio-grid">
         <div class="bio-portrait">
-          <img src="jigooHong.png" alt="Jigoo Hong">
+          <img src="jigooHong.png" alt="Jigoo Hong" loading="lazy" decoding="async">
         </div>
         <div>
           <h2 class="curatorial-title" style="margin-bottom: 24px;">Artist Statement</h2>
@@ -646,7 +655,7 @@
         </div>
       </div>
 
-      <!-- 하단: 국제 규격 이력 (PDF 아트보드 55) -->
+      <!-- CV -->
       <div id="cv-anchor" class="cv-section">
         <h2 class="curatorial-title" style="margin-bottom: 35px;">Curriculum Vitae</h2>
 
