@@ -102,19 +102,17 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* HOME */
+        /* HOME (상단 자연스러운 정렬로 수정) */
     #page-home.active {
-      display: flex;
-      align-items: center;
-      min-height: calc(100vh - 72px);
-      margin-top: 72px;
-      padding: 40px 60px;
+      display: block;
+      margin-top: 64px;                 /* PC 헤더 높이에 맞춤 */
+      padding: 36px 48px 80px 48px;     /* 위쪽 여백을 알맞게 축소 */
     }
     .home-split-layout {
       display: grid;
       grid-template-columns: 1.6fr 0.7fr;
-      gap: 50px;
-      align-items: center;
+      gap: 48px;
+      align-items: center;              /* 그림과 이름 텍스트 간의 높이만 정렬 */
       width: 100%;
       max-width: 1380px;
       margin: 0 auto;
@@ -130,20 +128,34 @@
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.07);
     }
     .home-text-wrap {
-      padding-left: 40px;
+      padding-left: 20px;
     }
     .home-text-wrap h1 {
-      font-size: clamp(3rem, 5vw, 4.4rem);
+      font-size: clamp(2.4rem, 4.5vw, 4.2rem);
       font-weight: 700;
       line-height: 1.05;
       color: #111111;
       letter-spacing: -0.03em;
     }
+
+    /* 모바일 화면 최적화 */
     @media (max-width: 860px) {
-      #page-home.active { padding: 40px 24px; }
-      .home-split-layout { grid-template-columns: 1fr; gap: 40px; }
-      .home-text-wrap { padding-left: 0; }
+      #page-home.active {
+        margin-top: 56px;               /* 모바일 헤더 높이에 밀착 */
+        padding: 20px 20px 60px 20px;   /* 불필요한 위쪽 공백 제거 */
+      }
+      .home-split-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .home-text-wrap {
+        padding-left: 0;
+      }
+      .home-text-wrap h1 {
+        font-size: 2.2rem;
+      }
     }
+
 
     /* WORK LIST */
     .vertical-work-list {
